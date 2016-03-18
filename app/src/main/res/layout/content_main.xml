@@ -16,22 +16,30 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5 Letter Word"
+            android:text="5 Letters"
             android:id="@+id/fiveLetterRadioButton"
             android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 Letter Word"
+            android:text="6 Letters"
             android:id="@+id/sixLetterRadioButton"
             android:checked="false" />
     </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Again"
+        android:id="@+id/playAgainButton"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,10 +70,4 @@
         android:id="@+id/resultTextView"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play Again"
-        android:id="@+id/playAgainButton"
-        android:layout_gravity="center_horizontal" />
 </LinearLayout>

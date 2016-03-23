@@ -44,8 +44,8 @@ public class Words {
      * @return
      */
     public String getRandomWord() {
-        Random random = new Random(this.words.size());
-        this.currentWord = words.get(random.nextInt());
+        Random random = new Random();
+        this.currentWord = words.get(random.nextInt(this.words.size() -1));
         return currentWord;
     }
 

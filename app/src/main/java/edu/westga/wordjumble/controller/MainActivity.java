@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.westga.wordjumble.R;
@@ -13,7 +14,7 @@ import edu.westga.wordjumble.model.WordScrambler;
 import edu.westga.wordjumble.model.Words;
 
 public class MainActivity extends AppCompatActivity {
-    private Words word;
+    private Words words;
     private WordScrambler game;
     private int hintCounter;
 
@@ -33,7 +34,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.word = new Words(this);
+        //this.words = new Words(this);
+        this.words = new Words();
+        this.startNewGame();
+    }
+
+    public  void didTapPlayAgain(View view) {
+        this.startNewGame();
+    }
+
+    private void startNewGame() {
+        TextView scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
+        this.game = new WordScrambler(this.words.getRandomWord());
+        scrambledWordTextView.setText(this.game.getScrambledWord());
         this.hintCounter = 0;
     }
 
@@ -43,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void getHint(View view) {
         hintCounter += 1;
-        if(hintCounter < this.word.getCurrentWord().length()) {
+        if(hintCounter < this.words.getCurrentWord().length()) {
             String hintWord = this.game.getHint(this.hintCounter);
             Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();
         }

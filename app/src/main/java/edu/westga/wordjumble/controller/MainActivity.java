@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +35,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //this.words = new Words(this);
-        this.words = new Words();
+        this.words = new Words(this);
+        //this.words = new Words();
         this.startNewGame();
     }
 
     public  void didTapPlayAgain(View view) {
         this.startNewGame();
+    }
+
+    public  void didTapEnter(View view) {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
+        if (this.game.compareWord(editText.getText().toString())) {
+            resultTextView.setText("Correct!  Great Job!");
+            editText.setText("");
+            this.startNewGame();
+        } else {
+            resultTextView.setText("Incorrect.  Try Again!");
+        }
     }
 
     private void startNewGame() {

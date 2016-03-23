@@ -49,7 +49,7 @@ public class WordScrambler {
      * @return true when user's guess matches unjumbled word otherwise false
      */
     public boolean compareWord(String word) {
-        return this.word.equals(word);
+        return this.word.equalsIgnoreCase(word);
     }
 
     private void scramble() {

@@ -61,13 +61,13 @@
         android:layout_height="wrap_content"
         android:text="Enter"
         android:id="@+id/enterButton"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:onClick="didTapEnter" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Correct / Incorrect"
         android:id="@+id/resultTextView"
         android:layout_gravity="center_horizontal" />
 

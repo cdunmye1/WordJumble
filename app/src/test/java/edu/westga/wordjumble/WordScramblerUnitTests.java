@@ -35,4 +35,30 @@ public class WordScramblerUnitTests {
         WordScrambler scrambler = new WordScrambler("chair");
         assertFalse(scrambler.compareWord("chairs"));
     }
+
+    @Test
+    public void validateIfHintShowsCensoredWordOnFirstHint() {
+        WordScrambler scrambler = new WordScrambler("chair");
+        String censored = scrambler.getHint(1);
+        assertEquals("c****", censored);
+    }
+
+    @Test
+    public void validateIfHintShowsCensoredWordOnLastHint() {
+        WordScrambler scrambler = new WordScrambler("chair");
+        String censored = scrambler.getHint(5);
+        assertEquals("chair",censored);
+    }
+
+    @Test
+    public void validateIfHintShowsCensoredWordOnOverIndexHint() {
+        WordScrambler scrambler = new WordScrambler("chair");
+        String censored = scrambler.getHint(12);
+        assertEquals("chair",censored);
+    }
+
+    @Test
+    public void validateIfGet5LetterWordsFirstWordFromFile() {
+        //TODO: Need to find a way to get Context
+    }
 }

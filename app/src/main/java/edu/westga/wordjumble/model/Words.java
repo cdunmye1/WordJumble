@@ -31,12 +31,13 @@ public class Words {
      */
     public Words() {
         this.words = new ArrayList<String>();
-        this.words.add("Stair");
-        this.words.add("Pills");
-        this.words.add("Bread");
-        this.words.add("Fryer");
-        this.words.add("Knives");
-        this.words.add("bottle");
+//        this.words.add("Stair");
+//        this.words.add("Pills");
+//        this.words.add("Bread");
+//        this.words.add("Fryer");
+//        this.words.add("Knives");
+//        this.words.add("bottle");
+        this.get5LetterWords();
     }
 
     /**

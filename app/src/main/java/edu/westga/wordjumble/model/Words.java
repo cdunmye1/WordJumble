@@ -15,11 +15,20 @@ public class Words {
 
     private ArrayList<String> words;
     private Context context;
+    private String currentWord;
 
+    /**
+     * 1-parameter constructor that accepts context from the MainActivity
+     * so that it can be used to getAssets and read text from a file
+     * @param context
+     */
     public Words(Context context) {
         this.context = context;
     }
 
+    /**
+     * Creates a list of strings
+     */
     public Words() {
         this.words = new ArrayList<String>();
         this.words.add("Stair");
@@ -30,11 +39,19 @@ public class Words {
         this.words.add("bottle");
     }
 
+    /**
+     * Gets a random word a list of strings
+     * @return
+     */
     public String getRandomWord() {
         Random random = new Random(this.words.size());
-        return words.get(random.nextInt());
+        this.currentWord = words.get(random.nextInt());
+        return currentWord;
     }
 
+    /**
+     * Gets 5 letter words from a file and stores them in a list
+     */
     public void get5LetterWords() {
         AssetManager assetManager = this.context.getAssets();
         InputStream input;
@@ -64,6 +81,9 @@ public class Words {
         }
     }
 
+    /**
+     * Gets 6 letter words from a file and stores them in a list
+     */
     public void get6LetterWords() {
         AssetManager assetManager = this.context.getAssets();
         InputStream input;
@@ -91,6 +111,14 @@ public class Words {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Gets the current word being used in the game
+     * @return
+     */
+    public String getCurrentWord() {
+        return this.currentWord;
     }
 
 }

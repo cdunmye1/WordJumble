@@ -6,13 +6,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Toast;
 
 import edu.westga.wordjumble.R;
+import edu.westga.wordjumble.model.WordScrambler;
 import edu.westga.wordjumble.model.Words;
 
 public class MainActivity extends AppCompatActivity {
+    private Words word;
+    private WordScrambler game;
+    private int hintCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Words wordList = new Words(this);
-        wordList.get5LetterWords();
+        this.word = new Words(this);
+        this.hintCounter = 0;
+    }
+
+    /**
+     * Displays a hint as a Toast
+     * @param view the active activity
+     */
+    public void getHint(View view) {
+        hintCounter += 1;
+        if(hintCounter < this.word.getCurrentWord().length()) {
+            String hintWord = this.game.getHint(this.hintCounter);
+            Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();
+        }
     }
 
     //TODO: Do we need this code below?

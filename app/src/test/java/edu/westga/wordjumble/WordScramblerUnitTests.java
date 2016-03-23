@@ -18,16 +18,19 @@ public class WordScramblerUnitTests {
         assertFalse("chair".equals(scrambler.getScrambledWord()));
     }
 
+    @Test
     public void validateWordMatchesCorrectWord() {
         WordScrambler scrambler = new WordScrambler("chair");
         assertEquals("chair", scrambler.getWord());
     }
 
+    @Test
     public void validateCompareWordReturnsTrueWhenWordMatches() {
         WordScrambler scrambler = new WordScrambler("chair");
         assert(scrambler.compareWord("chair"));
     }
 
+    @Test
     public void validateCompareWordReturnsFalseWhenWordDoesNotMatch() {
         WordScrambler scrambler = new WordScrambler("chair");
         assertFalse(scrambler.compareWord("chairs"));

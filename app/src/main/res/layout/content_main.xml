@@ -70,4 +70,13 @@
         android:id="@+id/resultTextView"
         android:layout_gravity="center_horizontal" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hint"
+        android:id="@+id/btnHint"
+        android:layout_gravity="center_horizontal"
+        android:onClick="getHint"/>
+
 </LinearLayout>

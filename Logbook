@@ -1,0 +1,22 @@
+Log: 3/13/2016 - Chris and Chris met up from 2-2:45 to go over the project. We discussed the overall architecture and design of the application. Chris Yan is going to create the WordScrambler class. Chris Dunmyer is going to create the Words class. They will meet up to review and discuss Wednesday at 8pm EST.
+
+Log 3/16/2016 - Chris and Chris met from 8:15-9:45. We started implementing functionality in the application. Using peer programming, they were able to work on the "WordScrambler" class that keeps track of a Word and a Scrambled word. We created jUnit classes to validate this functionality. We also created a skeleton for the user interface as well as a simple class that will keep track of words to be used in the application.
+
+Log 3/23/2016 Chris Dunmyer - Added the GUI functionality to actually implement the workflow of the app work. This included the implementation of the Enter and Play Again buttons.
+
+Chris Yan - Added functionality to display hint on screen using Toast and ability to access file. Added JUnit tests to tests the new functionality
+
+Chris and Chris refactored code
+
+Next due: Chris D:
+
+Update 5 and 6 Letter Buttons
+Rename play again to new game
+Validate Play again button works
+Validate 6 letter button click shows a 6 letter word on screen
+Validate 5 letter button click shows a 5 letter word on screen
+Chris Yan:
+
+Style UI (Include reverse landscape)
+(test) Validate Enter button shows both correct and incorrect
+(test) Validate Hint shows what we expect for one click and up to the max

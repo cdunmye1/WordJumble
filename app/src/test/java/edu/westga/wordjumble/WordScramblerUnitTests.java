@@ -39,21 +39,30 @@ public class WordScramblerUnitTests {
     @Test
     public void validateIfHintShowsCensoredWordOnFirstHint() {
         WordScrambler scrambler = new WordScrambler("chair");
-        String censored = scrambler.getHint(1);
+        String censored = scrambler.getHint();
         assertEquals("c****", censored);
     }
 
     @Test
     public void validateIfHintShowsCensoredWordOnLastHint() {
         WordScrambler scrambler = new WordScrambler("chair");
-        String censored = scrambler.getHint(5);
-        assertEquals("chair",censored);
+        scrambler.getHint();
+        scrambler.getHint();
+        scrambler.getHint();
+        String censored = scrambler.getHint();
+        assertEquals("chai*",censored);
     }
 
     @Test
     public void validateIfHintShowsCensoredWordOnOverIndexHint() {
         WordScrambler scrambler = new WordScrambler("chair");
-        String censored = scrambler.getHint(12);
+        scrambler.getHint();
+        scrambler.getHint();
+        scrambler.getHint();
+        scrambler.getHint();
+        scrambler.getHint();
+        scrambler.getHint();
+        String censored = scrambler.getHint();
         assertEquals("chair",censored);
     }
 

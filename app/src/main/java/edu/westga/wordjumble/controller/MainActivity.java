@@ -14,10 +14,24 @@ import edu.westga.wordjumble.R;
 import edu.westga.wordjumble.model.WordScrambler;
 import edu.westga.wordjumble.model.Words;
 
+/**
+ *TODO:
+ * Chris D:
+ - Update 5 and 6 Letter Buttons
+ - Rename play again to new game
+ - Validate Play again button works
+ - Validate 6 letter button click shows a 6 letter word on screen
+ - Validate 5 letter button click shows a 5 letter word on screen
+
+ Chris Yan:
+ - Style UI (Include reverse landscape)
+ - (test) Validate Enter button shows both correct and incorrect
+ - (test) Validate Hint shows what we expect for one click and up to the max
+*
+ */
 public class MainActivity extends AppCompatActivity {
     private Words words;
     private WordScrambler game;
-    private int hintCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         this.words = new Words(this);
-        //this.words = new Words();
         this.startNewGame();
     }
 
@@ -60,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         TextView scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
         this.game = new WordScrambler(this.words.getRandomWord());
         scrambledWordTextView.setText(this.game.getScrambledWord());
-        this.hintCounter = 0;
     }
 
     /**
@@ -68,33 +80,17 @@ public class MainActivity extends AppCompatActivity {
      * @param view the active activity
      */
     public void getHint(View view) {
-        hintCounter += 1;
-        if(hintCounter < this.words.getCurrentWord().length()) {
-            String hintWord = this.game.getHint(this.hintCounter);
+//        hintCounter += 1;
+//        if(hintCounter < this.words.getCurrentWord().length() -1) {
+//            String hintWord = this.game.getHint(this.hintCounter);
+//            Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();
+//        }
+        String hintWord = this.game.getHint();
+        if (this.game.compareWord(hintWord)) {
+            Toast.makeText(getApplicationContext(),"You really need all those hints? Try again!",Toast.LENGTH_LONG).show();
+            this.startNewGame();
+        } else {
             Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();
         }
     }
-
-    //TODO: Do we need this code below?
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }

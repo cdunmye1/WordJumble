@@ -11,6 +11,7 @@ public class WordScrambler {
 
     private String word;
     private String scrambledWord;
+    private int hintCounter;
 
     /**
      * Constructor that accepts a word String
@@ -21,6 +22,7 @@ public class WordScrambler {
             throw new IllegalArgumentException("The word cannot be empty");
         }
         this.word = word;
+        this.hintCounter = 0;
         this.scramble();
         while (this.word.equals(this.scrambledWord)) {
             this.scramble();
@@ -64,14 +66,15 @@ public class WordScrambler {
 
     /**
      * Returns a censored word to be shown on a Toast
-     * @param hintCounter amount of hints the user has used
      * @return the hint of the jumbled word
      */
-    public String getHint(int hintCounter) {
-        int starCounter = hintCounter + 1;
+    public String getHint() {
+        this.hintCounter++;
+        int starCounter = this.hintCounter;
         StringBuilder hintWord = new StringBuilder(this.word);
-        while( starCounter <= this.word.length()) {
+        while( starCounter <= this.word.length() - 1) {
             hintWord.setCharAt(starCounter,'*');
+            starCounter++;
         }
         return String.valueOf(hintWord);
     }

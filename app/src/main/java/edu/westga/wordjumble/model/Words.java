@@ -24,20 +24,21 @@ public class Words {
      */
     public Words(Context context) {
         this.context = context;
+        this.words = new ArrayList<String>();
+        this.get5LetterWords();
     }
 
     /**
      * Creates a list of strings
      */
     public Words() {
-        this.words = new ArrayList<String>();
+
 //        this.words.add("Stair");
 //        this.words.add("Pills");
 //        this.words.add("Bread");
 //        this.words.add("Fryer");
 //        this.words.add("Knives");
 //        this.words.add("bottle");
-        this.get5LetterWords();
     }
 
     /**
@@ -70,7 +71,11 @@ public class Words {
             String[] wordList = text.split(",");
 
             // Clear words ArrayList
-            this.words.clear();
+            if (this.words == null){
+                this.words = new ArrayList<String>();
+            } else {
+                this.words.clear();
+            }
             for (String current : wordList) {
                 if (current.length() == 5) {
                     this.words.add(current);
@@ -102,7 +107,12 @@ public class Words {
             String[] wordList = text.split(",");
 
             // Clear words ArrayList
-            this.words.clear();
+            if (this.words == null){
+                this.words = new ArrayList<String>();
+            } else {
+                this.words.clear();
+            }
+
             for(String current : wordList) {
                 if (current.length() == 6) {
                     this.words.add(current);

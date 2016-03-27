@@ -13,34 +13,44 @@
     tools:context=".controller.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <RadioGroup
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:id="@+id/gameSettingsLayout">
 
-        <RadioButton
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="5 Letters"
-            android:id="@+id/fiveLetterRadioButton"
-            android:checked="true" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_weight="2">
 
-        <RadioButton
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 Letters"
+                android:id="@+id/fiveLetterRadioButton"
+                android:checked="true" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6 Letters"
+                android:id="@+id/sixLetterRadioButton"
+                android:checked="false" />
+        </RadioGroup>
+
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="6 Letters"
-            android:id="@+id/sixLetterRadioButton"
-            android:checked="false" />
-    </RadioGroup>
+            android:text="@string/play_btn_string"
+            android:id="@+id/playAgainButton"
+            android:layout_gravity="center_horizontal"
+            android:onClick="didTapPlayAgain"
+            android:layout_weight="1"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play Again"
-        android:id="@+id/playAgainButton"
-        android:layout_gravity="center_horizontal"
-        android:onClick="didTapPlayAgain" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,21 +58,43 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Scrambled Word"
         android:id="@+id/scrambledWordTextView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="60dp"
+        android:textScaleX="1"/>
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/userGuessLayout">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter"
-        android:id="@+id/enterButton"
-        android:layout_gravity="center_horizontal"
-        android:onClick="didTapEnter" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="3"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_btn_string"
+            android:id="@+id/enterButton"
+            android:layout_gravity="center_horizontal"
+            android:onClick="didTapEnter"
+            android:layout_weight="1"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_btn_string"
+            android:id="@+id/btnHint"
+            android:layout_gravity="center_horizontal"
+            android:onClick="getHint"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,14 +102,5 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/resultTextView"
         android:layout_gravity="center_horizontal" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hint"
-        android:id="@+id/btnHint"
-        android:layout_gravity="center_horizontal"
-        android:onClick="getHint"/>
 
 </LinearLayout>

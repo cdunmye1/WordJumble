@@ -10,10 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/black"
     tools:context=".controller.MainActivity"
-    tools:showIn="@layout/activity_main"
-    >
+    tools:showIn="@layout/activity_main">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -29,33 +27,28 @@
             android:layout_weight="2">
 
             <RadioButton
-                android:buttonTint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5 Letters"
                 android:id="@+id/fiveLetterRadioButton"
-                android:checked="true"
-                android:textColor="#ffffff"/>
+                android:checked="true" />
 
             <RadioButton
-                android:buttonTint="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6 Letters"
                 android:id="@+id/sixLetterRadioButton"
-                android:checked="false"
-                android:textColor="#ffffff"/>
+                android:checked="false" />
         </RadioGroup>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/play_btn_string"
+            android:text="Play Again"
             android:id="@+id/playAgainButton"
             android:layout_gravity="center_horizontal"
             android:onClick="didTapPlayAgain"
-            android:layout_weight="1"
-            android:background="#64ffffff" />
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -69,8 +62,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:textSize="60dp"
-        android:textScaleX="1"
-        android:textColor="#ffffff"/>
+        android:textScaleX="1"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -82,29 +74,27 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
-            android:textColor="#ffffff"
             android:layout_gravity="center_horizontal"
             android:layout_weight="3"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/enter_btn_string"
+            android:text="Enter"
             android:id="@+id/enterButton"
             android:layout_gravity="center_horizontal"
             android:onClick="didTapEnter"
-            android:layout_weight="1"
-            android:background="#64ffffff" />
+            android:layout_weight="1"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnHint"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="right"
             android:src="@drawable/ic_hint"
-            android:background="#00ffffff"
-            android:hapticFeedbackEnabled="true"
-            android:onClick="getHint" />
+            android:onClick="getHint"
+            android:layout_weight="0.5"
+            android:background="#00ffffff" />
 
     </LinearLayout>
 

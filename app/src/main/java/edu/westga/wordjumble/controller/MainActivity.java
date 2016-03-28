@@ -1,15 +1,16 @@
 package edu.westga.wordjumble.controller;
 
+
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import edu.westga.wordjumble.R;
 import edu.westga.wordjumble.model.WordScrambler;
 import edu.westga.wordjumble.model.Words;
@@ -32,7 +33,8 @@ import edu.westga.wordjumble.model.Words;
 public class MainActivity extends AppCompatActivity {
     private Words words;
     private WordScrambler game;
-
+    private TextView scrambledWordTextView,  resultTextView;
+    private EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +42,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+        Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/DK_Cool_Crayon.ttf");
+        this.scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
+        this.resultTextView = (TextView) findViewById(R.id.resultTextView);
+        this.editText = (EditText) findViewById(R.id.editText);
+        this.scrambledWordTextView.setTypeface(newFont);
+        this.resultTextView.setTypeface(newFont);
         this.words = new Words(this);
         this.startNewGame();
     }
@@ -58,19 +65,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void didTapEnter(View view) {
-        EditText editText = (EditText) findViewById(R.id.editText);
-        TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
+
         if (this.game.compareWord(editText.getText().toString())) {
+            resultTextView.setTextColor(Color.parseColor("#00FF00"));
             resultTextView.setText("Correct!  Great Job!");
             editText.setText("");
             this.startNewGame();
         } else {
+            resultTextView.setTextColor(Color.parseColor("#FF0000"));
             resultTextView.setText("Incorrect.  Try Again!");
         }
     }
 
     private void startNewGame() {
-        TextView scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
         this.game = new WordScrambler(this.words.getRandomWord());
         scrambledWordTextView.setText(this.game.getScrambledWord());
     }
@@ -80,11 +87,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view the active activity
      */
     public void getHint(View view) {
-//        hintCounter += 1;
-//        if(hintCounter < this.words.getCurrentWord().length() -1) {
-//            String hintWord = this.game.getHint(this.hintCounter);
-//            Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();
-//        }
         String hintWord = this.game.getHint();
         if (this.game.compareWord(hintWord)) {
             Toast.makeText(getApplicationContext(),"You really need all those hints? Try again!",Toast.LENGTH_LONG).show();

@@ -53,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/play_btn_string"
-            android:id="@+id/playAgainButton"
+            android:id="@+id/newGameButton"
             android:layout_gravity="center_horizontal"
             android:onClick="didTapNewGame"
             android:layout_weight="1"

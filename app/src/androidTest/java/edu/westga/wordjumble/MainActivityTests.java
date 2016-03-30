@@ -86,7 +86,7 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         this.setUp();
         RadioButton fiveLetterRadioButton  = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);
         getInstrumentation().waitForIdleSync();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             TouchUtils.clickView(this, fiveLetterRadioButton);
             TextView scrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
             assertEquals(5,scrambledWordTextView.getText().toString().length());
@@ -97,10 +97,39 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         this.setUp();
         RadioButton sixLetterRadioButton  = (RadioButton) activity.findViewById(R.id.sixLetterRadioButton);
         getInstrumentation().waitForIdleSync();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             TouchUtils.clickView(this, sixLetterRadioButton);
             TextView scrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
             assertEquals(6,scrambledWordTextView.getText().toString().length());
+        }
+    }
+
+    public void testNewGameButtonStartsANewGame() {
+        this.setUp();
+        RadioButton fiveLetterRadioButton  = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);
+        TouchUtils.clickView(this, fiveLetterRadioButton);
+        TextView originalScrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
+        Button newGameButton  = (Button) activity.findViewById(R.id.newGameButton);
+        getInstrumentation().waitForIdleSync();
+
+        // Check up to 100 times that a new word has been given which would prove a new game
+        for (int i = 0; i < 100; i++) {
+            TouchUtils.clickView(this, newGameButton);
+            getInstrumentation().waitForIdleSync();
+            try {
+            Thread.sleep(10000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+            TextView newScrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
+            if (!newScrambledWordTextView.getText().toString().equalsIgnoreCase(originalScrambledWordTextView.getText().toString())) {
+                assertTrue(true);
+                break;
+            }
+            System.out.println("-----");
+            System.out.println(originalScrambledWordTextView.getText().toString());
+            System.out.println(newScrambledWordTextView.getText().toString());
+            System.out.println("-----");
         }
     }
 
@@ -108,7 +137,7 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         this.activity = getActivity();
         this.enter = (Button) activity.findViewById(R.id.enterButton);
         this.hint = (ImageButton) activity.findViewById(R.id.btnHint);
-        this.startGame = (Button) activity.findViewById(R.id.playAgainButton);
+        this.startGame = (Button) activity.findViewById(R.id.newGameButton);
         this.jumbledWord = (TextView) activity.findViewById(R.id.scrambledWordTextView);
         this.result = (TextView) activity.findViewById(R.id.resultTextView);
     }

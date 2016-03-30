@@ -104,6 +104,7 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         }
     }
 
+    
     public void testNewGameButtonStartsANewGame() {
         this.setUp();
         RadioButton fiveLetterRadioButton  = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);

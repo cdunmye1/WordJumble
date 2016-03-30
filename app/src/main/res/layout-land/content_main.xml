@@ -44,10 +44,10 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Play Again"
+            android:text="@string/play_btn_string"
             android:id="@+id/playAgainButton"
             android:layout_gravity="center_horizontal"
-            android:onClick="didTapPlayAgain"
+            android:onClick="didTapNewGame"
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnHint"
             android:layout_gravity="right"
-            android:src="@drawable/ic_hint"
+
             android:onClick="getHint"
             android:layout_weight="0.5"
             android:background="#00ffffff" />

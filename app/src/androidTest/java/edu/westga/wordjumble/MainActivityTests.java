@@ -4,6 +4,7 @@ import android.test.TouchUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import edu.westga.wordjumble.controller.MainActivity;
@@ -29,56 +30,78 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         assertNotNull(activity);
     }
 
-    public void testWrongGuess() {
+//    public void testWrongGuess() {
+//        this.setUp();
+//
+//        final EditText userGuessWord = (EditText) activity.findViewById(R.id.userGuessTxt);
+//
+//        getInstrumentation().runOnMainSync(new Runnable() {
+//            @Override
+//            public void run() {
+//                userGuessWord.requestFocus();
+//            }
+//        });
+//
+//        getInstrumentation().waitForIdleSync();
+//        getInstrumentation().sendStringSync("Guess");
+//        TouchUtils.clickView(this, this.enter);
+//        String resultText = this.result.getText().toString();
+//        assertEquals("Incorrect.  Try Again!", resultText);
+//    }
+//
+//    public void testRightGuess() {
+//        this.setUp();
+//
+//        final EditText userGuessWord = (EditText) activity.findViewById(R.id.userGuessTxt);
+//
+//        getInstrumentation().runOnMainSync(new Runnable() {
+//            @Override
+//            public void run() {
+//                userGuessWord.requestFocus();
+//            }
+//        });
+//
+//        getInstrumentation().waitForIdleSync();
+//        getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
+//        TouchUtils.clickView(this, this.enter);
+//        String resultText = this.result.getText().toString();
+//        assertEquals("Correct!  Great Job!",resultText);
+//    }
+//
+//    public void testFirstHint() {
+//        this.setUp();
+//        int starCounter = 1;
+//        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
+//        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
+//            hintWord.setCharAt(starCounter,'*');
+//            starCounter++;
+//        }
+//        String actualWord = String.valueOf(hintWord);
+//        TouchUtils.clickView(this, this.hint);
+//        getInstrumentation().waitForIdleSync();
+//        assertEquals(this.activity.getHintWord(),actualWord);
+//    }
+
+    public void testFiveLetterWordRadioButton() {
         this.setUp();
-
-        final EditText userGuessWord = (EditText) activity.findViewById(R.id.userGuessTxt);
-
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                userGuessWord.requestFocus();
-            }
-        });
-
+        RadioButton fiveLetterRadioButton  = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);
         getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync("Guess");
-        TouchUtils.clickView(this, this.enter);
-        String resultText = this.result.getText().toString();
-        assertEquals("Incorrect.  Try Again!", resultText);
-    }
-
-    public void testRightGuess() {
-        this.setUp();
-
-        final EditText userGuessWord = (EditText) activity.findViewById(R.id.userGuessTxt);
-
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                userGuessWord.requestFocus();
-            }
-        });
-
-        getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
-        TouchUtils.clickView(this, this.enter);
-        String resultText = this.result.getText().toString();
-        assertEquals("Correct!  Great Job!",resultText);
-    }
-
-    public void testFirstHint() {
-        this.setUp();
-        int starCounter = 1;
-        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
-        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
-            hintWord.setCharAt(starCounter,'*');
-            starCounter++;
+        for (int i = 0; i < 10; i++) {
+            TouchUtils.clickView(this, fiveLetterRadioButton);
+            TextView scrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
+            assertEquals(5,scrambledWordTextView.getText().toString().length());
         }
-        String actualWord = String.valueOf(hintWord);
-        TouchUtils.clickView(this, this.hint);
+    }
+
+    public void testSixLetterWordRadioButton() {
+        this.setUp();
+        RadioButton sixLetterRadioButton  = (RadioButton) activity.findViewById(R.id.sixLetterRadioButton);
         getInstrumentation().waitForIdleSync();
-        assertEquals(this.activity.getHintWord(),actualWord);
+        for (int i = 0; i < 10; i++) {
+            TouchUtils.clickView(this, sixLetterRadioButton);
+            TextView scrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
+            assertEquals(6,scrambledWordTextView.getText().toString().length());
+        }
     }
 
     public void setUp() {

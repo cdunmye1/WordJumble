@@ -83,10 +83,11 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/userGuessTxt"
             android:textColor="#ffffff"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="3"/>
+            android:layout_weight="3"
+            android:hint="@string/enter_guess_here_tip_String" />
 
         <Button
             android:layout_width="0dp"
@@ -106,7 +107,7 @@
 
             android:background="#00ffffff"
             android:hapticFeedbackEnabled="true"
-            android:onClick="getHint" />
+            android:onClick="setHint" />
 
     </LinearLayout>
 

@@ -9,10 +9,8 @@ import java.util.List;
  */
 public class WordScrambler {
 
-    private String word;
-    private String scrambledWord;
+    private String word, scrambledWord;
     private int hintCounter;
-
     /**
      * Constructor that accepts a word String
      * @param word the unjumbled word
@@ -68,7 +66,7 @@ public class WordScrambler {
      * Returns a censored word to be shown on a Toast
      * @return the hint of the jumbled word
      */
-    public String getHint() {
+    public String setHint() {
         this.hintCounter++;
         int starCounter = this.hintCounter;
         StringBuilder hintWord = new StringBuilder(this.word);
@@ -76,6 +74,8 @@ public class WordScrambler {
             hintWord.setCharAt(starCounter,'*');
             starCounter++;
         }
+
         return String.valueOf(hintWord);
     }
+
 }

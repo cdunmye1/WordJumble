@@ -4,7 +4,6 @@ package edu.westga.wordjumble.controller;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private WordScrambler game;
     private TextView scrambledWordTextView,  resultTextView;
     private EditText editText;
+    private String hintWord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Typeface newFont = Typeface.createFromAsset(getAssets(), "fonts/DK_Cool_Crayon.ttf");
         this.scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
         this.resultTextView = (TextView) findViewById(R.id.resultTextView);
-        this.editText = (EditText) findViewById(R.id.editText);
+        this.editText = (EditText) findViewById(R.id.userGuessTxt);
         this.scrambledWordTextView.setTypeface(newFont);
         this.resultTextView.setTypeface(newFont);
         this.words = new Words(this);
@@ -88,13 +88,26 @@ public class MainActivity extends AppCompatActivity {
      * Displays a hint as a Toast
      * @param view the active activity
      */
-    public void getHint(View view) {
-        String hintWord = this.game.getHint();
+    public void setHint(View view) {
+        this.hintWord = this.game.setHint();
         if (this.game.compareWord(hintWord)) {
             Toast.makeText(getApplicationContext(),"You really need all those hints? Try again!",Toast.LENGTH_LONG).show();
             this.startNewGame();
         } else {
             Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();
         }
+    }
+
+    public String getHintWord() {
+        return this.hintWord;
+    }
+
+
+    /**
+     * Returns the unjumbled word
+     * @return unjumbled word
+     */
+    public String getUnJumbledWord() {
+        return this.game.getWord();
     }
 }

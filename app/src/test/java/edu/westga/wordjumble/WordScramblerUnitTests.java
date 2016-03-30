@@ -3,7 +3,6 @@ package edu.westga.wordjumble;
 import org.junit.Test;
 
 import edu.westga.wordjumble.model.WordScrambler;
-import edu.westga.wordjumble.model.Words;
 
 import static org.junit.Assert.*;
 
@@ -39,30 +38,30 @@ public class WordScramblerUnitTests {
     @Test
     public void validateIfHintShowsCensoredWordOnFirstHint() {
         WordScrambler scrambler = new WordScrambler("chair");
-        String censored = scrambler.getHint();
+        String censored = scrambler.setHint();
         assertEquals("c****", censored);
     }
 
     @Test
     public void validateIfHintShowsCensoredWordOnLastHint() {
         WordScrambler scrambler = new WordScrambler("chair");
-        scrambler.getHint();
-        scrambler.getHint();
-        scrambler.getHint();
-        String censored = scrambler.getHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        String censored = scrambler.setHint();
         assertEquals("chai*",censored);
     }
 
     @Test
     public void validateIfHintShowsCensoredWordOnOverIndexHint() {
         WordScrambler scrambler = new WordScrambler("chair");
-        scrambler.getHint();
-        scrambler.getHint();
-        scrambler.getHint();
-        scrambler.getHint();
-        scrambler.getHint();
-        scrambler.getHint();
-        String censored = scrambler.getHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        scrambler.setHint();
+        String censored = scrambler.setHint();
         assertEquals("chair",censored);
     }
 

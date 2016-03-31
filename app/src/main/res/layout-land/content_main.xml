@@ -95,7 +95,6 @@
             android:onClick="getHint"
             android:layout_weight="0.5"
             android:background="#00ffffff" />
-
     </LinearLayout>
 
     <TextView

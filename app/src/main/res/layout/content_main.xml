@@ -104,11 +104,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnHint"
             android:layout_gravity="center_horizontal"
-
+            android:src="@drawable/ic_hint"
             android:background="#00ffffff"
             android:hapticFeedbackEnabled="true"
             android:onClick="setHint" />
-
     </LinearLayout>
 
     <TextView

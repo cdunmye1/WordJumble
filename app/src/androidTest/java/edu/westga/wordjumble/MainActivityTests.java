@@ -81,9 +81,7 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
 //        getInstrumentation().waitForIdleSync();
 //        assertEquals(this.activity.getHintWord(),actualWord);
 //    }
-
-
-
+    
     public void testNewGameButtonStartsANewGameWithFiveLetterWord() {
         this.setUp();
         RadioButton fiveLetterRadioButton  = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);

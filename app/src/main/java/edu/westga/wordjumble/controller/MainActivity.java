@@ -49,14 +49,21 @@ public class MainActivity extends AppCompatActivity {
         this.scrambledWordTextView.setTypeface(newFont);
         this.resultTextView.setTypeface(newFont);
         this.words = new Words(this);
-        this.words.get5LetterWords();
-        this.startNewGame();
+//        this.words.get5LetterWords();
+        //this.startNewGame();
     }
 
     public  void didTapNewGame(View view) {
+        RadioButton fiveLetterButton = (RadioButton) findViewById(R.id.fiveLetterRadioButton);
+        if (fiveLetterButton.isChecked()) {
+            this.words.get5LetterWords();
+        } else {
+            this.words.get6LetterWords();
+        }
         this.startNewGame();
     }
 
+    // either use a 5 or 6 letter word based on radio button selection
     public  void didTapEnter(View view) {
         if (this.game.compareWord(editText.getText().toString())) {
             resultTextView.setTextColor(Color.parseColor("#00FF00"));
@@ -69,15 +76,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public  void didTapFiveLetterWord(View view) {
-        this.words.get5LetterWords();
-        this.startNewGame();
-    }
-
-    public  void didTapSixLetterWord(View view) {
-        this.words.get6LetterWords();
-        this.startNewGame();
-    }
+//    public  void didTapFiveLetterWord(View view) {
+//        this.words.get5LetterWords();
+//        this.startNewGame();
+//    }
+//
+//    public  void didTapSixLetterWord(View view) {
+//        this.words.get6LetterWords();
+//        this.startNewGame();
+//    }
 
     private void startNewGame() {
         this.game = new WordScrambler(this.words.getRandomWord());

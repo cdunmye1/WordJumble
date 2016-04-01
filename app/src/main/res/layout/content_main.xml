@@ -35,8 +35,7 @@
                 android:text="5 Letters"
                 android:id="@+id/fiveLetterRadioButton"
                 android:checked="true"
-                android:textColor="#ffffff"
-                android:onClick="didTapFiveLetterWord" />
+                android:textColor="#ffffff" />
 
             <RadioButton
                 android:buttonTint="@color/white"
@@ -45,8 +44,7 @@
                 android:text="6 Letters"
                 android:id="@+id/sixLetterRadioButton"
                 android:checked="false"
-                android:textColor="#ffffff"
-                android:onClick="didTapSixLetterWord" />
+                android:textColor="#ffffff" />
         </RadioGroup>
 
         <Button

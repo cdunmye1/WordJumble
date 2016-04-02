@@ -28,57 +28,57 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         super(MainActivity.class);
     }
 
-    public void testActivityExists() {
-        MainActivity activity = getActivity();
-        assertNotNull(activity);
-    }
-
-    public void testWrongGuess() {
-//      this.setUp();
-        TouchUtils.clickView(this, this.startGame);
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                userGuessEditTxt.requestFocus();
-                userGuessEditTxt.setText("Wrong Guess");
-            }
-        });
-
-        getInstrumentation().waitForIdleSync();
-//      getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
-        TouchUtils.clickView(this, this.enter);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String resultText = this.result.getText().toString();
-        assertEquals("Incorrect.  Try Again!", resultText);
-    }
-
-    public void testRightGuess() {
-//      this.setUp();
-        TouchUtils.clickView(this, this.startGame);
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                userGuessEditTxt.requestFocus();
-                userGuessEditTxt.setText(activity.getUnJumbledWord());
-            }
-        });
-
-        getInstrumentation().waitForIdleSync();
-//        getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
-        TouchUtils.clickView(this, this.enter);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String resultText = this.result.getText().toString();
-        assertEquals("Correct!  Great Job!", resultText);
-    }
+//    public void testActivityExists() {
+//        MainActivity activity = getActivity();
+//        assertNotNull(activity);
+//    }
+//
+//    public void testWrongGuess() {
+////      this.setUp();
+//        TouchUtils.clickView(this, this.startGame);
+//        getInstrumentation().runOnMainSync(new Runnable() {
+//            @Override
+//            public void run() {
+//                userGuessEditTxt.requestFocus();
+//                userGuessEditTxt.setText("Wrong Guess");
+//            }
+//        });
+//
+//        getInstrumentation().waitForIdleSync();
+////      getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
+//        TouchUtils.clickView(this, this.enter);
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        String resultText = this.result.getText().toString();
+//        assertEquals("Incorrect.  Try Again!", resultText);
+//    }
+//
+//    public void testRightGuess() {
+////      this.setUp();
+//        TouchUtils.clickView(this, this.startGame);
+//        getInstrumentation().runOnMainSync(new Runnable() {
+//            @Override
+//            public void run() {
+//                userGuessEditTxt.requestFocus();
+//                userGuessEditTxt.setText(activity.getUnJumbledWord());
+//            }
+//        });
+//
+//        getInstrumentation().waitForIdleSync();
+////        getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
+//        TouchUtils.clickView(this, this.enter);
+//
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        String resultText = this.result.getText().toString();
+//        assertEquals("Correct!  Great Job!", resultText);
+//    }
 
 //    public void testFirstHint() {
 //        //this.setUp();
@@ -202,34 +202,32 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
 //        assertTrue(radioButton.isChecked());
 //    }
 //
-//    /*********************
-//     * Landscape tests **
-//     ********************/
-//
-//    public void testFirstHintLandscape() {
-////      this.setUp();
-//        TouchUtils.clickView(this, this.startGame);
-//        int starCounter = 1;
-//        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
-//        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
-//            hintWord.setCharAt(starCounter,'*');
-//            starCounter++;
-//        }
-//        String actualWord = String.valueOf(hintWord);
-//        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//        getInstrumentation().runOnMainSync(new Runnable() {
-//            @Override
-//            public void run() {
-//                hint.requestFocus();
-//            }
-//        });
-//        this.activity.finish();
-//        setActivity(null);
-//        this.activity = getActivity();
-//        getInstrumentation().waitForIdleSync();
-//        TouchUtils.clickView(this, this.hint);
-//        assertEquals(this.activity.getHintWord(), actualWord);
-//    }
+    /*********************
+     * Landscape tests **
+     ********************/
+
+    public void testFirstHintLandscape() {
+//      this.setUp();
+        TouchUtils.clickView(this, this.startGame);
+        int starCounter = 1;
+        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
+        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
+            hintWord.setCharAt(starCounter,'*');
+            starCounter++;
+        }
+        String actualWord = String.valueOf(hintWord);
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                hint.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, this.hint);
+        assertEquals(this.activity.getHintWord(), actualWord);
+    }
 
     @Override
     protected void setUp() {

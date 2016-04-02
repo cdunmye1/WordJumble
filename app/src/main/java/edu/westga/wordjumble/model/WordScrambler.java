@@ -1,5 +1,6 @@
 package edu.westga.wordjumble.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * Created by Chris Dunmyer and Chris Yan
  */
-public class WordScrambler {
+public class WordScrambler implements Serializable{
 
     private String word, scrambledWord;
     private int hintCounter;

@@ -1,6 +1,7 @@
 package edu.westga.wordjumble.controller;
 
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String hintWord;
     private boolean isHintEnabled;
     private boolean isEnterButtonEnabled;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +60,20 @@ public class MainActivity extends AppCompatActivity {
         this.btnHint = (ImageButton) findViewById(R.id.btnHint);
         this.enterButton = (Button) findViewById(R.id.enterButton);
         if (savedInstanceState == null) {
-            this.words = new Words(this);
             this.isHintEnabled = false;
             this.isEnterButtonEnabled = false;
+          }
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getSerializable("WORDS_OBJECT") != null) {
+                this.words = (Words) savedInstanceState.getSerializable("WORDS_OBJECT");
+            }
+            if (savedInstanceState.getSerializable("GAME") != null) {
+                this.game = (WordScrambler) savedInstanceState.getSerializable("GAME");
+                scrambledWordTextView.setText(this.game.getScrambledWord());
+            }
+            this.isHintEnabled = savedInstanceState.getBoolean("IS_HINT_ENABLED");
+            this.isEnterButtonEnabled = savedInstanceState.getBoolean("IS_ENTER_ENABLED");
         }
         this.btnHint.setEnabled(this.isHintEnabled);
         this.enterButton.setEnabled(this.isEnterButtonEnabled);
@@ -69,11 +82,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
+        if (this.words != null) {
+            outState.putSerializable("WORDS_OBJECT", this.words);
+            System.out.println("got here WORDSOBJECT");
+        }
+        if (this.game != null) {
+            outState.putSerializable("GAME", this.game);
+            System.out.println("got here GAME");
+        }
         outState.putBoolean("IS_HINT_ENABLED", this.isHintEnabled);
         outState.putBoolean("IS_ENTER_ENABLED", this.isEnterButtonEnabled);
+        System.out.println("IS_HINT_ENABLED :" + this.isHintEnabled);
+        System.out.println("IS_ENTER_ENABLED :" + this.isEnterButtonEnabled);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     public  void didTapNewGame(View view) {
+        this.words = new Words(this);
         RadioButton fiveLetterButton = (RadioButton) findViewById(R.id.fiveLetterRadioButton);
         if (fiveLetterButton.isChecked()) {
             this.words.get5LetterWords();
@@ -89,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
 
     // either use a 5 or 6 letter word based on radio button selection
     public  void didTapEnter(View view) {
+        if (this.editText.getText().toString().isEmpty()) {
+            resultTextView.setTextColor(Color.parseColor("#FF0000"));
+            resultTextView.setText("You must enter a word.  Try Again!");
+            return;
+        }
         if (this.game.compareWord(editText.getText().toString())) {
             resultTextView.setTextColor(Color.parseColor("#00FF00"));
             resultTextView.setText("Correct!  Great Job!");
@@ -102,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startNewGame() {
         this.game = new WordScrambler(this.words.getRandomWord());
+        System.out.println("got here");
         scrambledWordTextView.setText(this.game.getScrambledWord());
     }
 

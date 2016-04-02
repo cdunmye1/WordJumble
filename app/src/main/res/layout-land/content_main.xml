@@ -8,11 +8,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     android:background="@color/black"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".controller.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:orientation="vertical">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -52,7 +52,7 @@
             android:text="@string/play_btn_string"
             android:id="@+id/newGameButton"
             android:layout_gravity="center_horizontal"
-            android:onClick="didTapPlayAgain"
+            android:onClick="didTapNewGame"
             android:layout_weight="1"
             android:background="#64ffffff"/>
 
@@ -101,7 +101,7 @@
             android:id="@+id/btnHint"
             android:layout_gravity="right"
             android:src="@drawable/ic_hint"
-            android:onClick="getHint"
+            android:onClick="setHint"
             android:layout_weight="0.5"
             android:background="#00ffffff" />
     </LinearLayout>

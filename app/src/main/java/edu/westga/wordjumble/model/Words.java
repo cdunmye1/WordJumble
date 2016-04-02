@@ -2,16 +2,18 @@ package edu.westga.wordjumble.model;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Parcelable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Created by Chris Dunmeyer and Chris Yan on 3/16/2016.
  */
-public class Words {
+public class Words implements Serializable {
 
     private ArrayList<String> words;
     private Context context;

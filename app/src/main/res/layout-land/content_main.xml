@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="@color/black"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".controller.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -31,14 +32,18 @@
                 android:layout_height="wrap_content"
                 android:text="5 Letters"
                 android:id="@+id/fiveLetterRadioButton"
-                android:checked="true" />
+                android:checked="true"
+                android:textColor="#ffffff"
+                android:buttonTint="@color/white"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6 Letters"
                 android:id="@+id/sixLetterRadioButton"
-                android:checked="false" />
+                android:checked="false"
+                android:textColor="#ffffff"
+                android:buttonTint="@color/white"/>
         </RadioGroup>
 
         <Button
@@ -48,7 +53,8 @@
             android:id="@+id/newGameButton"
             android:layout_gravity="center_horizontal"
             android:onClick="didTapPlayAgain"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="#64ffffff"/>
 
     </LinearLayout>
 
@@ -59,6 +65,7 @@
         android:text="Scrambled Word"
         android:id="@+id/scrambledWordTextView"
         android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:textSize="60dp"
@@ -75,7 +82,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/userGuessTxt"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="3"/>
+            android:layout_weight="3"
+            android:textColor="#ffffff"/>
 
         <Button
             android:layout_width="0dp"
@@ -84,7 +92,8 @@
             android:id="@+id/enterButton"
             android:layout_gravity="center_horizontal"
             android:onClick="didTapEnter"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="#64ffffff"/>
 
         <ImageButton
             android:layout_width="0dp"

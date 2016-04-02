@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private WordScrambler game;
     private TextView scrambledWordTextView,  resultTextView;
     private EditText editText;
+    private Button enterButton;
+    private ImageButton btnHint;
     private String hintWord;
+    private boolean isHintEnabled;
+    private boolean isEnterButtonEnabled;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +54,23 @@ public class MainActivity extends AppCompatActivity {
         this.editText = (EditText) findViewById(R.id.userGuessTxt);
         this.scrambledWordTextView.setTypeface(newFont);
         this.resultTextView.setTypeface(newFont);
-        this.words = new Words(this);
-//        this.words.get5LetterWords();
-        //this.startNewGame();
+        this.scrambledWordTextView = (TextView) findViewById(R.id.scrambledWordTextView);
+        this.btnHint = (ImageButton) findViewById(R.id.btnHint);
+        this.enterButton = (Button) findViewById(R.id.enterButton);
+        if (savedInstanceState == null) {
+            this.words = new Words(this);
+            this.isHintEnabled = false;
+            this.isEnterButtonEnabled = false;
+        }
+        this.btnHint.setEnabled(this.isHintEnabled);
+        this.enterButton.setEnabled(this.isEnterButtonEnabled);
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("IS_HINT_ENABLED", this.isHintEnabled);
+        outState.putBoolean("IS_ENTER_ENABLED", this.isEnterButtonEnabled);
     }
 
     public  void didTapNewGame(View view) {
@@ -60,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             this.words.get6LetterWords();
         }
+        this.isEnterButtonEnabled = true;
+        this.isHintEnabled = true;
+        this.btnHint.setEnabled(this.isHintEnabled);
+        this.enterButton.setEnabled(this.isEnterButtonEnabled);
         this.startNewGame();
     }
 
@@ -75,16 +99,6 @@ public class MainActivity extends AppCompatActivity {
             resultTextView.setText("Incorrect.  Try Again!");
         }
     }
-
-//    public  void didTapFiveLetterWord(View view) {
-//        this.words.get5LetterWords();
-//        this.startNewGame();
-//    }
-//
-//    public  void didTapSixLetterWord(View view) {
-//        this.words.get6LetterWords();
-//        this.startNewGame();
-//    }
 
     private void startNewGame() {
         this.game = new WordScrambler(this.words.getRandomWord());

@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/play_btn_string"
-            android:id="@+id/playAgainButton"
+            android:id="@+id/newGameButton"
             android:layout_gravity="center_horizontal"
             android:onClick="didTapPlayAgain"
             android:layout_weight="1"/>
@@ -73,7 +73,7 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/userGuessTxt"
             android:layout_gravity="center_horizontal"
             android:layout_weight="3"/>
 

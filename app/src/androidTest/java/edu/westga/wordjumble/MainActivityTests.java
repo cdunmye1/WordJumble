@@ -1,4 +1,5 @@
 package edu.westga.wordjumble;
+import android.content.pm.ActivityInfo;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.widget.Button;
@@ -81,7 +82,7 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
 //        getInstrumentation().waitForIdleSync();
 //        assertEquals(this.activity.getHintWord(),actualWord);
 //    }
-    
+
     public void testNewGameButtonStartsANewGameWithFiveLetterWord() {
         this.setUp();
         RadioButton fiveLetterRadioButton  = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);
@@ -126,7 +127,71 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         }
     }
 
+    public void testEnterButtonIsDisabledByDefault() {
+        this.setUp();
+        Button enterButton  = (Button) activity.findViewById(R.id.enterButton);
+        assertFalse(enterButton.isEnabled());
+    }
+
+    public void testHintButtonIsDisabledByDefault() {
+        this.setUp();
+        ImageButton hintButton  = (ImageButton) activity.findViewById(R.id.btnHint);
+        assertFalse(hintButton.isEnabled());
+    }
+
+    public void testHintButtonIsEnabledWhenNewGameIsClicked() {
+        this.setUp();
+        Button newGameButton  = (Button) activity.findViewById(R.id.newGameButton);
+        ImageButton hintButton  = (ImageButton) activity.findViewById(R.id.btnHint);
+        TouchUtils.clickView(this, newGameButton);
+        assertTrue(hintButton.isEnabled());
+    }
+
+    public void testEditTextStateDoesNotChangeWhenOrientationChange() {
+        this.setUp();
+
+        final EditText userGuessWord = (EditText) activity.findViewById(R.id.userGuessTxt);
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessWord.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("abcde");
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals("abcde", ((EditText) activity.findViewById(R.id.userGuessTxt)).getText().toString());
+    }
+
+    public void testScrambledWordDoesNotChangeWhenOrientationChange() {
+        this.setUp();
+        Button newGameButton  = (Button) activity.findViewById(R.id.newGameButton);
+        TouchUtils.clickView(this, newGameButton);
+        TextView originalScrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
+        String originalScrambledWord = originalScrambledWordTextView.getText().toString();
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals(originalScrambledWord, ((TextView) activity.findViewById(R.id.scrambledWordTextView)).getText().toString());
+    }
+
+    public void testRadioButtonDoesNotChangeWhenOrientationChangeWhen5ButtonRadioButton() {
+        this.setUp();
+        RadioButton radioButton = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);
+        TouchUtils.clickView(this, radioButton);
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertTrue(radioButton.isChecked());
+    }
+
+    public void testRadioButtonDoesNotChangeWhenOrientationChangeWhen6ButtonRadioButton() {
+        this.setUp();
+        RadioButton radioButton = (RadioButton) activity.findViewById(R.id.sixLetterRadioButton);
+        TouchUtils.clickView(this, radioButton);
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertTrue(radioButton.isChecked());
+    }
+
     public void setUp() {
+        //this.activity = null;
         this.activity = getActivity();
         this.enter = (Button) activity.findViewById(R.id.enterButton);
         this.hint = (ImageButton) activity.findViewById(R.id.btnHint);

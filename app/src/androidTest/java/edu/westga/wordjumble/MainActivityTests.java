@@ -1,4 +1,5 @@
 package edu.westga.wordjumble;
+import android.app.Instrumentation;
 import android.content.pm.ActivityInfo;
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
@@ -9,7 +10,10 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 import edu.westga.wordjumble.controller.MainActivity;
+import edu.westga.wordjumble.model.Words;
 
 /**
  * Created by Chris Dunmeyer and Chris Yan on 3/29/2016.
@@ -187,39 +191,172 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         assertTrue(radioButton.isChecked());
     }
 
+    public void testReadFromFileSuccess() {
+        Words newWords = new Words(getActivity());
+        String[] wordList = null;
+        try {
+            wordList = newWords.readFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertTrue(wordList.length > 0);
+    }
+
+    public void testReadFromFileReadWordSuccess() {
+        Words newWords = new Words(getActivity());
+        String[] wordList = null;
+        try {
+            wordList = newWords.readFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertTrue(wordList[0].length() > 0);
+    }
+
+    public void testSecondToLastHint() {
+        TouchUtils.clickView(this, this.startGame);
+        int starCounter = this.activity.getUnJumbledWord().length() - 1;
+        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
+        while (starCounter <= this.activity.getUnJumbledWord().length() - 1) {
+            hintWord.setCharAt(starCounter, '*');
+            starCounter++;
+        }
+        String actualWord = String.valueOf(hintWord);
+
+        int hintCounter = 0;
+        while (hintCounter < this.activity.getUnJumbledWord().length() - 1) {
+            TouchUtils.clickView(this, this.hint);
+            hintCounter++;
+        }
+        getInstrumentation().waitForIdleSync();
+        assertEquals(this.activity.getHintWord(), actualWord);
+    }
+
+    public void testSecondHint() {
+        TouchUtils.clickView(this, this.startGame);
+        int starCounter = 2 ;
+        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
+        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
+            hintWord.setCharAt(starCounter,'*');
+            starCounter++;
+        }
+        String actualWord = String.valueOf(hintWord);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                hint.requestFocus();
+            }
+        });
+        this.activity = getActivity();
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, this.hint);
+        TouchUtils.clickView(this, this.hint);
+        assertEquals(this.activity.getHintWord(), actualWord);
+    }
+
     /*********************
      * Landscape tests **
      ********************/
 
-//    public void testFirstHintLandscape() {
-//        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//        getInstrumentation().waitForIdleSync();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        Button newGameButton  = (Button) activity.findViewById(R.id.newGameButton);
-//        TouchUtils.clickView(this, newGameButton);
-//        getInstrumentation().waitForIdleSync();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("got to test: " +  this.jumbledWord.getText().toString());
-////        //getInstrumentation().waitForIdleSync();
-////        int starCounter = 1;
-////        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
-////        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
-////            hintWord.setCharAt(starCounter,'*');
-////            starCounter++;
-////        }
-////        String actualWord = String.valueOf(hintWord);
-////        TouchUtils.clickView(this, this.hint);
-////        getInstrumentation().waitForIdleSync();
-////        assertEquals(this.activity.getHintWord(), actualWord);
-//    }
+    public void testFirstHintLandscape() {
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getInstrumentation().waitForIdleSync();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        startGame = (Button) this.activity.findViewById(R.id.newGameButton);
+        hint = (ImageButton) this.activity.findViewById(R.id.btnHint);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                startGame.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        startGame.performClick();
+        hint.performClick();
+        int starCounter = 1;
+        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
+        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
+            hintWord.setCharAt(starCounter,'*');
+            starCounter++;
+        }
+        String actualWord = String.valueOf(hintWord);
+        assertEquals(this.activity.getHintWord(), actualWord);
+    }
+
+    public void testSecondHintLandscape() {
+        TouchUtils.clickView(this, this.startGame);
+        int starCounter = 2 ;
+        StringBuilder hintWord = new StringBuilder(this.activity.getUnJumbledWord());
+        while( starCounter <= this.activity.getUnJumbledWord().length() - 1) {
+            hintWord.setCharAt(starCounter,'*');
+            starCounter++;
+        }
+        String actualWord = String.valueOf(hintWord);
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                hint.requestFocus();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        int hintCounter = 0;
+        do {
+            this.hint.performClick();
+            hintCounter++;
+        } while(hintCounter < 2);
+        assertEquals(this.activity.getHintWord(), actualWord);
+    }
+
+    public void testWrongGuessLandscape() {
+
+        TouchUtils.clickView(this, this.startGame);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessEditTxt.requestFocus();
+                userGuessEditTxt.setText("Wrong Guess");
+            }
+        });
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getInstrumentation().waitForIdleSync();
+        this.enter.performClick();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String resultText = this.result.getText().toString();
+        assertEquals("Incorrect.  Try Again!", resultText);
+    }
+
+    public void testRightGuessLandscape() {
+
+        TouchUtils.clickView(this, this.startGame);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessEditTxt.requestFocus();
+                userGuessEditTxt.setText(activity.getUnJumbledWord());
+            }
+        });
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getInstrumentation().sendStringSync(this.activity.getUnJumbledWord());
+        this.enter.performClick();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String resultText = this.result.getText().toString();
+        assertEquals("Correct!  Great Job!", resultText);
+    }
 
     @Override
     protected void setUp() {

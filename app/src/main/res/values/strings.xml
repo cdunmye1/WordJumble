@@ -5,6 +5,7 @@
     <string name="enter_btn_string">Enter</string>
     <string name="play_btn_string">New Game</string>
     <string name="enter_guess_here_tip_String">Enter Guess Here</string>
+    <string name="scrambled_word_landscape_String">Scrambled Word</string>
     <color name="grey">#747d7d</color>
     <color name="red">#ff0000</color>
     <color name="white">#ffffff</color>

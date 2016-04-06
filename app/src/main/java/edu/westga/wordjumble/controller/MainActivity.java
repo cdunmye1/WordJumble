@@ -84,16 +84,13 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         if (this.words != null) {
             outState.putSerializable("WORDS_OBJECT", this.words);
-            System.out.println("got here WORDSOBJECT");
         }
         if (this.game != null) {
             outState.putSerializable("GAME", this.game);
-            System.out.println("got here GAME");
         }
         outState.putBoolean("IS_HINT_ENABLED", this.isHintEnabled);
         outState.putBoolean("IS_ENTER_ENABLED", this.isEnterButtonEnabled);
-        System.out.println("IS_HINT_ENABLED :" + this.isHintEnabled);
-        System.out.println("IS_ENTER_ENABLED :" + this.isEnterButtonEnabled);
+
     }
 
     @Override
@@ -136,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void startNewGame() {
         this.game = new WordScrambler(this.words.getRandomWord());
-        System.out.println("got here");
         scrambledWordTextView.setText(this.game.getScrambledWord());
     }
 

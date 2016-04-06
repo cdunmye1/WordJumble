@@ -2,8 +2,7 @@ package edu.westga.wordjumble.model;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.os.Parcelable;
-
+import android.support.annotation.NonNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -34,13 +33,6 @@ public class Words implements Serializable {
      * Creates a list of strings
      */
     public Words() {
-
-//        this.words.add("Stair");
-//        this.words.add("Pills");
-//        this.words.add("Bread");
-//        this.words.add("Fryer");
-//        this.words.add("Knives");
-//        this.words.add("bottle");
     }
 
     /**
@@ -57,27 +49,10 @@ public class Words implements Serializable {
      * Gets 5 letter words from a file and stores them in a list
      */
     public void get5LetterWords() {
-        AssetManager assetManager = this.context.getAssets();
-        InputStream input;
+
 
         try {
-            // load wordBank.txt file
-            input = assetManager.open("wordBank.txt");
-            int size = input.available();
-            byte[] buffer = new byte[size];
-            input.read(buffer);
-            input.close();
-
-            // byte buffer into a string
-            String text = new String(buffer);
-            String[] wordList = text.split(",");
-
-            // Clear words ArrayList
-            if (this.words == null){
-                this.words = new ArrayList<String>();
-            } else {
-                this.words.clear();
-            }
+            String[] wordList = readFromFile();
             for (String current : wordList) {
                 if (current.length() == 5) {
                     this.words.add(current);
@@ -93,27 +68,10 @@ public class Words implements Serializable {
      * Gets 6 letter words from a file and stores them in a list
      */
     public void get6LetterWords() {
-        AssetManager assetManager = this.context.getAssets();
-        InputStream input;
+
 
         try {
-            // load wordBank.txt file
-            input = assetManager.open("wordBank.txt");
-            int size = input.available();
-            byte[] buffer = new byte[size];
-            input.read(buffer);
-            input.close();
-
-            // byte buffer into a string
-            String text = new String(buffer);
-            String[] wordList = text.split(",");
-
-            // Clear words ArrayList
-            if (this.words == null){
-                this.words = new ArrayList<String>();
-            } else {
-                this.words.clear();
-            }
+            String[] wordList = readFromFile();
 
             for(String current : wordList) {
                 if (current.length() == 6) {
@@ -124,6 +82,30 @@ public class Words implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @NonNull
+    public String[] readFromFile() throws IOException {
+        AssetManager assetManager = this.context.getAssets();
+        InputStream input;
+        // load wordBank.txt file
+        input = assetManager.open("wordBank.txt");
+        int size = input.available();
+        byte[] buffer = new byte[size];
+        input.read(buffer);
+        input.close();
+
+        // byte buffer into a string
+        String text = new String(buffer);
+        String[] wordList = text.split(",");
+
+        // Clear words ArrayList
+        if (this.words == null){
+            this.words = new ArrayList<String>();
+        } else {
+            this.words.clear();
+        }
+        return wordList;
     }
 
     /**

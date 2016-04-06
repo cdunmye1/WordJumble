@@ -335,7 +335,7 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         assertEquals("Incorrect.  Try Again!", resultText);
     }
 
-    public void testRightGuessLandscape() {
+    public void testCorrectAnswerGuessLandscape() {
 
         TouchUtils.clickView(this, this.startGame);
         getInstrumentation().runOnMainSync(new Runnable() {
@@ -356,6 +356,88 @@ public class MainActivityTests  extends ActivityInstrumentationTestCase2<MainAct
         }
         String resultText = this.result.getText().toString();
         assertEquals("Correct!  Great Job!", resultText);
+    }
+
+    public void testDisabledEnterButtonSwitchFromPortraitToLandscape() {
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        String resultText = this.result.getText().toString();
+        assertEquals(this.enter.isEnabled(), false);
+    }
+
+    public void testDisabledHintButtonSwitchFromPortraitToLandscape() {
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        String resultText = this.result.getText().toString();
+        assertEquals(this.hint.isEnabled(), false);
+    }
+
+    public void testWrongAnswerMessageSwitchFromPortraitToLandscape() {
+        TouchUtils.clickView(this, this.startGame);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessEditTxt.requestFocus();
+                userGuessEditTxt.setText("Wrong answer");
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, this.enter);
+
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        String resultText = this.result.getText().toString();
+        assertEquals("Incorrect.  Try Again!", resultText);
+    }
+
+    public void testCorrectAnswerMessageSwitchFromPortraitToLandscape() {
+        TouchUtils.clickView(this, this.startGame);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessEditTxt.requestFocus();
+                userGuessEditTxt.setText(activity.getUnJumbledWord());
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, this.enter);
+
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        String resultText = this.result.getText().toString();
+        assertEquals("Correct!  Great Job!", resultText);
+    }
+
+    public void testCorrectAnswerEnterButtonSwitchFromPortraitToLandscape() {
+        TouchUtils.clickView(this, this.startGame);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessEditTxt.requestFocus();
+                userGuessEditTxt.setText(activity.getUnJumbledWord());
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, this.enter);
+
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals(this.enter.isEnabled(), true);
+    }
+
+    public void testCorrectAnswerHintButtonSwitchFromPortraitToLandscape() {
+        TouchUtils.clickView(this, this.startGame);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessEditTxt.requestFocus();
+                userGuessEditTxt.setText(activity.getUnJumbledWord());
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+        TouchUtils.clickView(this, this.enter);
+
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals(this.hint.isEnabled(), true);
     }
 
     @Override

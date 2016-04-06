@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void didTapNewGame(View view) {
+
         this.words = new Words(this);
         RadioButton fiveLetterButton = (RadioButton) findViewById(R.id.fiveLetterRadioButton);
         if (fiveLetterButton.isChecked()) {
@@ -110,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         this.isHintEnabled = true;
         this.btnHint.setEnabled(this.isHintEnabled);
         this.enterButton.setEnabled(this.isEnterButtonEnabled);
+        Toast newGameToast = Toast.makeText(getApplicationContext(),"New Game started",Toast.LENGTH_LONG);
+        newGameToast.show();
         this.startNewGame();
     }
 
@@ -143,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
     public void setHint(View view) {
         this.hintWord = this.game.setHint();
         if (this.game.compareWord(hintWord)) {
-            Toast.makeText(getApplicationContext(),"You really need all those hints? Try again!",Toast.LENGTH_LONG).show();
+            Toast hint = Toast.makeText(getApplicationContext(),"You really need all those hints? New game started",Toast.LENGTH_LONG);
+            hint.show();
             this.startNewGame();
         } else {
             Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();

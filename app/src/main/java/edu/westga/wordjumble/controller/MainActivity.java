@@ -1,6 +1,5 @@
 package edu.westga.wordjumble.controller;
 
-
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,21 +17,6 @@ import edu.westga.wordjumble.R;
 import edu.westga.wordjumble.model.WordScrambler;
 import edu.westga.wordjumble.model.Words;
 
-/**
- *TODO:
- * Chris D:
- - Update 5 and 6 Letter Buttons
- - Rename play again to new game
- - Validate Play again button works
- - Validate 6 letter button click shows a 6 letter word on screen
- - Validate 5 letter button click shows a 5 letter word on screen
-
- Chris Yan:
- - Style UI (Include reverse landscape)
- - (test) Validate Enter button shows both correct and incorrect
- - (test) Validate Hint shows what we expect for one click and up to the max
-*
- */
 public class MainActivity extends AppCompatActivity {
     private Words words;
     private WordScrambler game;
@@ -41,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Button enterButton;
     private ImageButton btnHint;
     private String hintWord;
+    private String resultMessage;
+    private String resultColor;
     private boolean isHintEnabled;
     private boolean isEnterButtonEnabled;
 
@@ -72,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
                 this.game = (WordScrambler) savedInstanceState.getSerializable("GAME");
                 scrambledWordTextView.setText(this.game.getScrambledWord());
             }
+            if (savedInstanceState.getString("RESULT_MESSAGE") != null && savedInstanceState.getString("RESULT_COLOR") != null) {
+                this.resultMessage = savedInstanceState.getString("RESULT_MESSAGE");
+                this.resultColor = savedInstanceState.getString("RESULT_COLOR");
+                resultTextView.setTextColor(Color.parseColor(this.resultColor));
+                resultTextView.setText(this.resultMessage);
+            }
             this.isHintEnabled = savedInstanceState.getBoolean("IS_HINT_ENABLED");
             this.isEnterButtonEnabled = savedInstanceState.getBoolean("IS_ENTER_ENABLED");
         }
@@ -90,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
         }
         outState.putBoolean("IS_HINT_ENABLED", this.isHintEnabled);
         outState.putBoolean("IS_ENTER_ENABLED", this.isEnterButtonEnabled);
-
+        outState.putString("RESULT_MESSAGE", this.resultMessage);
+        outState.putString("RESULT_COLOR", this.resultColor);
     }
 
     @Override
@@ -113,24 +106,31 @@ public class MainActivity extends AppCompatActivity {
         this.enterButton.setEnabled(this.isEnterButtonEnabled);
         Toast newGameToast = Toast.makeText(getApplicationContext(),"New Game started",Toast.LENGTH_LONG);
         newGameToast.show();
+        this.resultMessage = "";
+        resultTextView.setText(this.resultMessage);
         this.startNewGame();
     }
 
     // either use a 5 or 6 letter word based on radio button selection
     public  void didTapEnter(View view) {
         if (this.editText.getText().toString().isEmpty()) {
-            resultTextView.setTextColor(Color.parseColor("#FF0000"));
+            this.resultColor = "#FF0000";
+            resultTextView.setTextColor(Color.parseColor(this.resultColor));
             resultTextView.setText("You must enter a word.  Try Again!");
             return;
         }
         if (this.game.compareWord(editText.getText().toString())) {
-            resultTextView.setTextColor(Color.parseColor("#00FF00"));
-            resultTextView.setText("Correct!  Great Job!");
+            this.resultColor = "#00FF00";
+            this.resultMessage = "Correct!  Great Job!";
+            resultTextView.setTextColor(Color.parseColor(this.resultColor));
+            resultTextView.setText(this.resultMessage);
             editText.setText("");
             this.startNewGame();
         } else {
-            resultTextView.setTextColor(Color.parseColor("#FF0000"));
-            resultTextView.setText("Incorrect.  Try Again!");
+            this.resultColor = "#FF0000";
+            resultTextView.setTextColor(Color.parseColor(this.resultColor));
+            this.resultMessage = "Incorrect.  Try Again!";
+            resultTextView.setText(this.resultMessage);
         }
     }
 
@@ -148,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
         if (this.game.compareWord(hintWord)) {
             Toast hint = Toast.makeText(getApplicationContext(),"You really need all those hints? New game started",Toast.LENGTH_LONG);
             hint.show();
+            this.resultMessage = "";
+            resultTextView.setText(this.resultMessage);
             this.startNewGame();
         } else {
             Toast.makeText(getApplicationContext(),hintWord,Toast.LENGTH_LONG).show();

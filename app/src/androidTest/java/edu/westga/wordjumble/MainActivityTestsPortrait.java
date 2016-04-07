@@ -16,15 +16,16 @@ import edu.westga.wordjumble.model.Words;
 
 /**
  * Created by Chris Dunmeyer and Chris Yan on 4/5/2016.
+ * This class tests the MainActivity class when it is in the Landscape orientation
  */
-public class PortraitActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class MainActivityTestsPortrait extends ActivityInstrumentationTestCase2<MainActivity> {
     private MainActivity activity;
     private Button enter, startGame;
     private ImageButton hint;
     private TextView jumbledWord, result;
     private EditText userGuessEditTxt;
 
-    public PortraitActivityTest() {
+    public MainActivityTestsPortrait() {
         super(MainActivity.class);
     }
 

@@ -12,8 +12,10 @@ import edu.westga.wordjumble.controller.MainActivity;
 
 /**
  * Created by Chris Dunmeyer and Chris Yan on 4/5/2016.
+ * This class tests the MainActivity class when it is started in the Portrait, has something done, then
+ * switched to Landscape
  */
-public class PortraitToLandscapeTests extends ActivityInstrumentationTestCase2<MainActivity> {
+public class MainActivityTestsPortraitToLandscape extends ActivityInstrumentationTestCase2<MainActivity> {
 
     private MainActivity activity;
     private Button enter, startGame;
@@ -21,7 +23,7 @@ public class PortraitToLandscapeTests extends ActivityInstrumentationTestCase2<M
     private TextView jumbledWord, result;
     private EditText userGuessEditTxt;
 
-    public PortraitToLandscapeTests() {
+    public MainActivityTestsPortraitToLandscape() {
         super(MainActivity.class);
     }
 

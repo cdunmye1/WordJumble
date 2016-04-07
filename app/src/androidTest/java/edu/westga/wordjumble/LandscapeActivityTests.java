@@ -91,12 +91,13 @@ public class LandscapeActivityTests extends ActivityInstrumentationTestCase2<Mai
         });
         this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getInstrumentation().waitForIdleSync();
-        this.enter.performClick();
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        this.enter.performClick();
         String resultText = this.result.getText().toString();
         assertEquals("Incorrect.  Try Again!", resultText);
     }

@@ -149,6 +149,42 @@ public class PortraitActivityTest extends ActivityInstrumentationTestCase2<MainA
         TouchUtils.clickView(this, newGameButton);
         assertTrue(hintButton.isEnabled());
     }
+    public void testEditTextStateDoesNotChangeWhenOrientationChange() {
+        final EditText userGuessWord = (EditText) activity.findViewById(R.id.userGuessTxt);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                userGuessWord.requestFocus();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
+        getInstrumentation().sendStringSync("abcde");
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals("abcde", ((EditText) activity.findViewById(R.id.userGuessTxt)).getText().toString());
+    }
+
+    public void testScrambledWordDoesNotChangeWhenOrientationChange() {
+        Button newGameButton  = (Button) activity.findViewById(R.id.newGameButton);
+        TouchUtils.clickView(this, newGameButton);
+        TextView originalScrambledWordTextView = (TextView) activity.findViewById(R.id.scrambledWordTextView);
+        String originalScrambledWord = originalScrambledWordTextView.getText().toString();
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertEquals(originalScrambledWord, ((TextView) activity.findViewById(R.id.scrambledWordTextView)).getText().toString());
+    }
+
+    public void testRadioButtonDoesNotChangeWhenOrientationChangeWhen5ButtonRadioButton() {
+        RadioButton radioButton = (RadioButton) activity.findViewById(R.id.fiveLetterRadioButton);
+        TouchUtils.clickView(this, radioButton);
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertTrue(radioButton.isChecked());
+    }
+
+    public void testRadioButtonDoesNotChangeWhenOrientationChangeWhen6ButtonRadioButton() {
+        RadioButton radioButton = (RadioButton) activity.findViewById(R.id.sixLetterRadioButton);
+        TouchUtils.clickView(this, radioButton);
+        this.activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        assertTrue(radioButton.isChecked());
+    }
 
     public void testReadFromFileSuccess() {
         Words newWords = new Words(getActivity());
